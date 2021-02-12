@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FF6BB0BF</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#0097A7</color>
+    <color name="redForWrongAnswer">#DB5D44</color>
+    <color name="greenForRightAnswer">#2BA697</color>
+    <color name="neutralAnswerButtonColor">#8099A8</color>
+    /*my own colortheme*/
+    <color name = "blueGreen">#FF6BB0BF</color>
+    <color name = "yellowOrange">#F2B680</color>
+    <color name = "brownOrange">#D99873</color>
+    <color name = "purpleBrown">#735755</color>
+    <color name = "offWhite">#F2F2F2</color>
+</resources>

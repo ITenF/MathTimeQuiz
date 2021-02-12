@@ -1,0 +1,151 @@
+package com.itenf.mathtimequiz.ui.main;
+
+import androidx.lifecycle.ViewModelProvider;
+import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.itenf.mathtimequiz.R;
+
+public class ChooseRangeNumbersFragment extends Fragment {
+
+    private com.itenf.mathtimequiz.ui.main.MainViewModel mViewModel;
+
+    public static ChooseRangeNumbersFragment newInstance() {
+        return new ChooseRangeNumbersFragment();
+    }
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.choose_range_numbers_fragment, container, false);
+
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        //
+    }
+
+    public void onViewCreated(@NonNull final View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        mViewModel = mViewModel =  new ViewModelProvider(requireActivity()).get(MainViewModel.class);
+
+        //the onclick-listeners for the buttons
+        view.findViewById(R.id.text1_10_Btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                text1_10_BtnOnClick();
+            }
+        });
+
+        view.findViewById(R.id.text_1_20Btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                text1_20_BtnOnClick();
+            }
+        });
+
+        view.findViewById(R.id.text_1_30Btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                text1_30_BtnOnClick();
+            }
+        });
+
+        view.findViewById(R.id.text_1_40Btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                text1_40_BtnOnClick();
+            }
+        });
+        view.findViewById(R.id.text_1_50Btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                text1_50_BtnOnClick();
+            }
+        });
+
+        view.findViewById(R.id.text1_100_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                text1_100_btnOnClick();
+            }
+        });
+
+        view.findViewById(R.id.time30secBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                time30secBtnOnClick();
+            }
+        });
+
+        view.findViewById(R.id.time45secBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                time45secBtnOnClick();
+            }
+        });
+
+        view.findViewById(R.id.time60secBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                time60secBtnOnClick();
+            }
+        });
+
+        view.findViewById(R.id.startGameBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startGameBtnOnClick();
+            }
+        });
+
+    }
+
+    //Implementing all Button clicks:
+    //For the number range
+    public void text1_10_BtnOnClick(){
+        mViewModel.setNumberRange(10);
+        //Log.i("TagFloor" , "ChooseRangeNumbersFragment line 90 numberRange is:"  + mViewModel.getNumberRange());
+    }
+    public void text1_20_BtnOnClick(){ mViewModel.setNumberRange(20); }
+    public void text1_30_BtnOnClick(){ mViewModel.setNumberRange(30); }
+    public void text1_40_BtnOnClick(){ mViewModel.setNumberRange(40); }
+    public void text1_50_BtnOnClick(){ mViewModel.setNumberRange(50); }
+    public void text1_100_btnOnClick(){
+        mViewModel.setNumberRange(100);
+    }
+
+    //for the time range
+    public void time30secBtnOnClick(){
+        mViewModel.setNumberOfSeconds(30);
+    }
+    public void time45secBtnOnClick(){
+        mViewModel.setNumberOfSeconds(45);
+    }
+    public void time60secBtnOnClick(){
+        mViewModel.setNumberOfSeconds(60);
+    }
+
+    public void startGameBtnOnClick(){
+        PlayFieldFragment newFragment = new PlayFieldFragment();
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .remove(ChooseRangeNumbersFragment.this)
+                .replace(R.id.container , newFragment)
+                .addToBackStack(null)
+                .commit();
+    }
+
+
+}

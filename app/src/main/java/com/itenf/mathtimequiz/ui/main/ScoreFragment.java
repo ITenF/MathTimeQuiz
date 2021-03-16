@@ -9,6 +9,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,16 +21,19 @@ import android.widget.TextView;
 import com.itenf.mathtimequiz.R;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.Map;
+import java.util.Set;
 
 public class ScoreFragment extends Fragment {
 
     private MainViewModel mViewModel;
-    private TextView scoreNumberTxtView;
+    private Button scoreNumberBtn;
     private TextView numberRangeTxtView;
-    private TextView timeTxtView;
-    private TextView highScoreTxtView;
+    private Button timeBtn;
+    private TextView highScoreBtn;
     private Button startGameBtn;
+    private Button typeArithmOpImageBtn;
 
     ArrayList<ArrayList<String>> highScoreList;
 
@@ -44,10 +48,7 @@ public class ScoreFragment extends Fragment {
         return inflater.inflate(R.layout.score_fragment, container, false);
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
+
 
 
     public void onViewCreated(@NonNull final View view, Bundle savedInstanceState) {
@@ -56,25 +57,57 @@ public class ScoreFragment extends Fragment {
         //to make connection to Viewmodel
         mViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
         //
-        scoreNumberTxtView  = view.findViewById(R.id.scoreNumberTxtView);
-        timeTxtView = view.findViewById(R.id.timeTxtView);
-        numberRangeTxtView = view.findViewById(R.id.numberRangeTxtView);
+        scoreNumberBtn = view.findViewById(R.id.scoreNumberBtn);
+        timeBtn = view.findViewById(R.id.timeBtn);
+        numberRangeTxtView = view.findViewById(R.id.getallenVanBtn);
         startGameBtn = view.findViewById(R.id.startNewGameBtn);
-        highScoreTxtView = view.findViewById(R.id.highScoreTxtView);
+        highScoreBtn = view.findViewById(R.id.highScoreBtn);
+        typeArithmOpImageBtn = view.findViewById(R.id.typeArithmOpImageBtn);
+
+        //zet de score
+        String score = String.valueOf(mViewModel.getScore());
+        scoreNumberBtn.setText(String.valueOf(score + " sommen"));
+
+        //type sommen
+        switch (mViewModel.getTypeArithmeticExpression()) {
+            case "+":
+                typeArithmOpImageBtn.setText("Plus");
+                typeArithmOpImageBtn.setCompoundDrawablesWithIntrinsicBounds(
+                        null, null, this.getResources().getDrawable(R.drawable.ic_addsignroundbckgrnd28dpx28dp), null);
+                break;
+            case "-":
+                typeArithmOpImageBtn.setText("Min");
+                typeArithmOpImageBtn.setCompoundDrawablesWithIntrinsicBounds(
+                        null, null, this.getResources().getDrawable(R.drawable.ic_minsignroundbckgrnd28dpx28dp), null);
+                break;
+            case "*":
+                typeArithmOpImageBtn.setText("Vermenigvuldig");
+                typeArithmOpImageBtn.setCompoundDrawablesWithIntrinsicBounds(
+                        null, null, this.getResources().getDrawable(R.drawable.ic_multiplysignroundbckgrnd28x28dp), null);
+                break;
+            case "/":
+                typeArithmOpImageBtn.setText("Delen");
+                typeArithmOpImageBtn.setCompoundDrawablesWithIntrinsicBounds(
+                        null, null, this.getResources().getDrawable(R.drawable.ic_dividesignroundbckgrnd28x28dp), null);
+                break;
+            default:
+                typeArithmOpImageBtn.setText("Niet gevonden");
+        }
 
         String scoreKey = "HighScore_" + mViewModel.getTypeArithmeticExpression() + "_" + String.valueOf(mViewModel.getNumberRange()) + "_" + String.valueOf(mViewModel.getNumberOfSeconds());
-        Log.i("TagFloor" , "ScoreFragment regel 64: scoreKey is: " + scoreKey);
+        Log.i("TagFloor", "ScoreFragment regel 64: scoreKey is: " + scoreKey);
 
         checkAndStoreHighScore(scoreKey);
         //setText of the score and time
-       // Log.i("TagFloor" , "ScoreFragment regel 55: score is: " + mViewModel.getScore());
-        scoreNumberTxtView.setText(String.valueOf(mViewModel.getScore()) + "  " + mViewModel.getTypeArithmeticExpression() + " sums");
+        // Log.i("TagFloor" , "ScoreFragment regel 55: score is: " + mViewModel.getScore());
+
+
         //reset score
         mViewModel.setScore(0);
         //set range of numbers that are used to play with
-        numberRangeTxtView.setText("with range of numbers: " + mViewModel.getNumberRange());
+        numberRangeTxtView.setText("1 - " + mViewModel.getNumberRange());
         //set Time of playing
-        timeTxtView.setText(String.valueOf(mViewModel.getNumberOfSeconds())  + " sec");
+        timeBtn.setText(String.valueOf(mViewModel.getNumberOfSeconds()) + " sec");
         //reset Timer
         mViewModel.setNumberOfSeconds(30);
 
@@ -83,40 +116,41 @@ public class ScoreFragment extends Fragment {
         startGameBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainFragment newFragment = new MainFragment();
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .remove(ScoreFragment.this)
-                        .replace(R.id.container , newFragment)
-                        .addToBackStack(null)
-                        .commit();
+                Navigation.findNavController(view).navigate(R.id.action_scoreFragment_to_chooseArithmeticOperationFragment);
             }
         });
 
     }
 
-    public void checkAndStoreHighScore( String scoreKey){
+    public void checkAndStoreHighScore(String scoreKey) {
+
+        //Log.i("TagFloor" , "ScoreFragment regel 129  method checkAndStoreHighScore is started");
         SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-        //check if there is already a highscore for this game with the right expr , range and score  __ if there is not the value will be 0
-        if(sharedPref.getInt(scoreKey, 0) == 0){
-            //make a new highscore for this combination
-            editor.putInt(scoreKey , mViewModel.getScore());
+
+        //to clear all values in sharedPreferences for debubbing:
+        //editor.clear().commit();
+
+
+        //Log.i("TagFloor" , "ScoreFragment regel 131  method checkAndStoreHighScore is started");
+        if (!sharedPref.contains(scoreKey)) {// if there is not already a highscore for this game make a new highscore for this combination
+            editor.putInt(scoreKey, mViewModel.getScore());
             editor.apply();
-            highScoreTxtView.setText("Highscore is "  + String.valueOf(mViewModel.getScore()));
-            Log.i("TagFloor" , "ScoreFragment regel 103  REALLY NEW score is: " + mViewModel.getScore());
-        }else {//there is already a highscore for this combination so look if the new score is higher then the older one
-            if(sharedPref.getInt(scoreKey, 0) < mViewModel.getScore()){
-                //set mew highscore
-                editor.putInt(scoreKey , mViewModel.getScore());
-                editor.apply();
-                highScoreTxtView.setText("NEW Highscore is " + String.valueOf(mViewModel.getScore()));
-                Log.i("TagFloor" , "ScoreFragment regel 107 new score is: " + mViewModel.getScore());
-            }
+            highScoreBtn.setText("Hoogste score " + String.valueOf(mViewModel.getScore()) + " sommen");
+            //Log.i("TagFloor" , "ScoreFragment regel 135  REALLY NEW score is: " + mViewModel.getScore());
+
+        } else if (sharedPref.getInt(scoreKey, 0) < mViewModel.getScore()) {//there is already a highscore for this combination so look if the new score is higher then the saved one in shared Pref
+            //set mew highscore
+            editor.putInt(scoreKey, mViewModel.getScore());
+            editor.apply();
+            highScoreBtn.setText("NIEUWE hoogste score " + String.valueOf(mViewModel.getScore()) + " sommen");
+            // Log.i("TagFloor" , "ScoreFragment regel 147 new score is: " + mViewModel.getScore());
+
+        } else {//the new score is lower then the saved highscore so print the saved highscore in shared pref
+            //Log.i("TagFloor" , "ScoreFragment regel 149 do nothing because the highscore is lower");}
+            highScoreBtn.setText("Hoogste score tot nu toe " + sharedPref.getInt(scoreKey, 0) + " sommen");
+
         }
 
-
-
-
     }
-
 }

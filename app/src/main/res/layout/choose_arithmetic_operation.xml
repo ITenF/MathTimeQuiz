@@ -5,77 +5,75 @@
     android:id="@+id/chooseArithmeticOperationConstraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:textAlignment="viewStart"
     tools:context=".ui.main.ChooseArithmeticOperationFragment">
 
     <TextView
         android:id="@+id/chooseArithmOperTxtView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="64dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="35dp"
         android:text="@string/kies_het_type_sommen"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/plusBtn"
+        app:layout_constraintBottom_toTopOf="@+id/plusTxtImageBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageButton
-        android:id="@+id/plusBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:contentDescription="@string/test"
-        android:src="@android:drawable/ic_input_add"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/minBtn"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
-        android:id="@+id/minBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:contentDescription="@string/test"
-        android:src="@android:drawable/editbox_background"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <Button
+        android:id="@+id/plusTxtImageBtn"
+        style="@style/buttonChooseArithExpr"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="35dp"
+        android:drawableEnd="@drawable/ic_addsignroundbckgrnd28dpx28dp"
+        android:gravity="start|center_vertical"
+        android:text="@string/plus"
+        app:layout_constraintBottom_toTopOf="@+id/minTxtImageBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/plusBtn"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:id="@+id/multiplyBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:contentDescription="@string/test"
-        android:src="@android:drawable/ic_menu_close_clear_cancel"
-        app:layout_constraintEnd_toStartOf="@+id/divisionBtn"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/plusBtn" />
-
-    <ImageButton
-        android:id="@+id/divisionBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/test"
-        android:src="@android:drawable/stat_notify_call_mute"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/multiplyBtn"
-        app:layout_constraintTop_toTopOf="@+id/multiplyBtn" />
-
-    <ImageButton
-        android:id="@+id/imageButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:contentDescription="@string/test"
-        android:src="@android:drawable/ic_input_add"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/minTxtImageBtn"
+        style="@style/buttonChooseArithExpr"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="35dp"
+        android:drawableEnd="@drawable/ic_minsignroundbckgrnd28dpx28dp"
+        android:gravity="start|center_vertical"
+        android:text="@string/min"
+        app:layout_constraintBottom_toTopOf="@+id/multiplyTxtImageBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/multiplyTxtImageBtn"
+        style="@style/buttonChooseArithExpr"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="35dp"
+        android:drawableEnd="@drawable/ic_multiplysignroundbckgrnd28x28dp"
+        android:gravity="start|center_vertical"
+        android:text="@string/vermenigvuldig"
+        app:layout_constraintBottom_toTopOf="@+id/divideTxtImageBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/divideTxtImageBtn"
+        style="@style/buttonChooseArithExpr"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="32dp"
+        android:drawableEnd="@drawable/ic_dividesignroundbckgrnd28x28dp"
+        android:gravity="start|center_vertical"
+        android:text="@string/delen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/multiplyTxtImageBtn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

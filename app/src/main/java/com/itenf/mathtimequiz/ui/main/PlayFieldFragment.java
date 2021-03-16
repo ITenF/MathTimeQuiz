@@ -7,6 +7,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -42,6 +45,8 @@ public class PlayFieldFragment extends Fragment {
     private Button answer2Button;
     private Button answer3Button;
     private Button answer4Button;
+    View view;
+    NavController navController;
 
 
     DecimalFormat df2 = new DecimalFormat("##0.00");
@@ -53,13 +58,14 @@ public class PlayFieldFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.play_field_fragment, container, false);
-
+        view = inflater.inflate(R.layout.play_field_fragment, container, false);
+        return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        setHasOptionsMenu(false);
 
     }
 
@@ -198,7 +204,7 @@ public class PlayFieldFragment extends Fragment {
         return answerInt;
     }
 
-    //make a new sum from the chosen artithmetic expression,and Do set it in the textfields of the playfield and remember
+    //For DIVISION make a new sum from the chosen artithmetic expression,and Do set it in the textfields of the playfield and remember
     public Double makeSumAndSetSumInPlayFieldForDivision(){
         //make the first number of the sum
         int firstNumber = getRandomNumber();
@@ -333,34 +339,49 @@ public class PlayFieldFragment extends Fragment {
             mViewModel.setScore(mViewModel.getScore()+1);
             scoreTxtView.setText(String.valueOf(mViewModel.getScore()));
             //set the background of the right button to green
-            buttonWithNummber.setBackgroundResource(R.color.greenForRightAnswer);
+            buttonWithNummber.setBackgroundColor(getActivity().getResources().getColor(R.color.greenForRightAnswer));
+            //buttonWithNummber.getBackground().setBack(getActivity().getResources().getColor(R.color.greenForRightAnswer));
             //wait for 1 second to see the green color to show that the answer was right
             Handler h = new Handler();
-            h.postDelayed(r, 1000); // <-- the "1000" is the delay time in miliseconds.
+            h.postDelayed(r, 250); // <-- the "250" is the delay time in miliseconds to be able to see the color change before the new sum appears.
         }else{
-            buttonWithNummber.setBackgroundResource(R.color.redForWrongAnswer);
+            buttonWithNummber.setBackgroundColor(getActivity().getResources().getColor(R.color.redForWrongAnswer));
+            answer1Button.setClickable(false);
+            answer2Button.setClickable(false);
+            answer3Button.setClickable(false);
+            answer4Button.setClickable(false);
+            Handler wait = new Handler();
+            //set wait punishment for wrong answer by disabling buttons
+            wait.postDelayed(rWait, 1500); // <-- the "1500" is the delay time in miliseconds.
         }
 
     }
 
+    //FOR DIVISION SUMS
     public void checkAnswerDivision( Button buttonWithNummber){
         //get the number of the button
         String buttonAnswerStr = String.valueOf(buttonWithNummber.getText());
         //Log.i("TagFloor" , "PlayFieldFragment regel 337: buttonAnswerStr = " + buttonAnswerStr);
-        //Log.i("TagFloor" , "PlayFieldFragment regel 351: real answer with format is = " + df2.format(mViewModel.getCorrectAnswerDivDbl()));
-        //Double buttonNumber = Double.parseDouble(buttonAnswerStr);
-        //the answer is not correct so turn the background color of the button red
         if (buttonAnswerStr.equals(df2.format(mViewModel.getCorrectAnswerDivDbl()))){
             //raise the score with 1
             mViewModel.setScore(mViewModel.getScore()+1);
             scoreTxtView.setText(String.valueOf(mViewModel.getScore()));
             //set the background of the right button to green
-            buttonWithNummber.setBackgroundResource(R.color.greenForRightAnswer);
+            //buttonWithNummber.setBackgroundResource(R.color.greenForRightAnswer);
+            buttonWithNummber.setBackgroundColor(getActivity().getResources().getColor(R.color.greenForRightAnswer));
             //wait for 1 second to see the green color to show that the answer was right
             Handler h = new Handler();
-            h.postDelayed(rDiv, 1000); // <-- the "1000" is the delay time in miliseconds.
+            h.postDelayed(rDiv, 250); // <-- the "250" is the delay time in miliseconds.
         }else{
-            buttonWithNummber.setBackgroundResource(R.color.redForWrongAnswer);
+            //buttonWithNummber.setBackgroundResource(R.color.redForWrongAnswer);
+            buttonWithNummber.setBackgroundColor(getActivity().getResources().getColor(R.color.redForWrongAnswer));
+            answer1Button.setClickable(false);
+            answer2Button.setClickable(false);
+            answer3Button.setClickable(false);
+            answer4Button.setClickable(false);
+            Handler wait = new Handler();
+            //set wait punishment for wrong answer by disabling buttons
+            wait.postDelayed(rWait, 1500); // <-- the "1000" is the delay time in miliseconds.
         }
 
     }
@@ -370,10 +391,15 @@ public class PlayFieldFragment extends Fragment {
         @Override
         public void run(){
             //remove the backgroundcolor of all the buttons
-           answer1Button.setBackgroundResource(R.color.neutralAnswerButtonColor);
-            answer2Button.setBackgroundResource(R.color.neutralAnswerButtonColor);
-            answer3Button.setBackgroundResource(R.color.neutralAnswerButtonColor);
-            answer4Button.setBackgroundResource(R.color.neutralAnswerButtonColor);
+           //answer1Button.setBackgroundResource(R.color.neutralAnswerButtonColor);
+            answer1Button.setBackgroundColor(getActivity().getResources().getColor(R.color.primaryColor));
+            //answer2Button.setBackgroundResource(R.color.neutralAnswerButtonColor);
+            answer2Button.setBackgroundColor(getActivity().getResources().getColor(R.color.primaryColor));
+            //answer3Button.setBackgroundResource(R.color.neutralAnswerButtonColor);
+            answer3Button.setBackgroundColor(getActivity().getResources().getColor(R.color.primaryColor));
+            //answer4Button.setBackgroundResource(R.color.neutralAnswerButtonColor);
+            answer4Button.setBackgroundColor(getActivity().getResources().getColor(R.color.primaryColor));
+
             //make new sum in playfield and store new correctanswer
             int newCorrectAnswer = makeSumAndSetSumInPlayField(mViewModel.getTypeArithmeticExpression());
             mViewModel.setCorrectAnswer(newCorrectAnswer);
@@ -381,19 +407,32 @@ public class PlayFieldFragment extends Fragment {
         }
     };
 
-    //this will be executed after the right answer is chosen, with a delay of 1 sec
+
+
+    //FOR DIVISION SUMS this will be executed after the right answer is chosen, with a delay of 1 sec
     Runnable rDiv = new Runnable() {
         @Override
         public void run(){
             //remove the backgroundcolor of all the buttons
-            answer1Button.setBackgroundResource(R.color.neutralAnswerButtonColor);
-            answer2Button.setBackgroundResource(R.color.neutralAnswerButtonColor);
-            answer3Button.setBackgroundResource(R.color.neutralAnswerButtonColor);
-            answer4Button.setBackgroundResource(R.color.neutralAnswerButtonColor);
+            answer1Button.setBackgroundColor(getActivity().getResources().getColor(R.color.primaryColor));
+            answer2Button.setBackgroundColor(getActivity().getResources().getColor(R.color.primaryColor));
+            answer3Button.setBackgroundColor(getActivity().getResources().getColor(R.color.primaryColor));
+            answer4Button.setBackgroundColor(getActivity().getResources().getColor(R.color.primaryColor));
             //make new sum in playfield and store new correctanswer
             Double newCorrectAnswer = makeSumAndSetSumInPlayFieldForDivision();
             mViewModel.setCorrectAnswerDivDbl(newCorrectAnswer);
             setAnswerButtonsForDivision();
+        }
+    };
+
+    //Stop the execution of the program for punishment for a wrong answer: after a while the buttons will be clickable again
+    Runnable rWait = new Runnable() {
+        @Override
+        public void run(){
+            answer1Button.setClickable(true);
+            answer2Button.setClickable(true);
+            answer3Button.setClickable(true);
+            answer4Button.setClickable(true);
         }
     };
 
@@ -415,19 +454,22 @@ public class PlayFieldFragment extends Fragment {
 
             @Override
             public void onFinish() {
-                finishGame();
+                    finishGame();
+
             }
 
         }.start();
     }
 
+
+
+
     public void finishGame(){
-        ScoreFragment newFragment = new ScoreFragment();
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .remove(PlayFieldFragment.this)
-                .replace(R.id.container , newFragment)
-                .addToBackStack(null)
-                .commit();
+        //if the PlayFieldFragment is not active anymore then the score_fragment should not be constructed
+        if (this.isVisible()) {
+            //go to Score Fragment
+            Navigation.findNavController(view).navigate(R.id.action_playFieldFragment_to_scoreFragment);
+        }
     }
 
 }

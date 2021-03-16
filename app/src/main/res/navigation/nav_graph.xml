@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
+    <fragment
+        android:id="@+id/chooseArithmeticOperationFragment"
+        android:name="com.itenf.mathtimequiz.ui.main.ChooseArithmeticOperationFragment"
+        android:label="choose_arithmetic_operation"
+        tools:layout="@layout/choose_arithmetic_operation" >
+        <action
+            android:id="@+id/action_chooseArithmeticOperationFragment_to_chooseRangeNumbersFragment"
+            app:destination="@id/chooseRangeNumbersFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.itenf.mathtimequiz.ui.main.MainFragment"
+        android:label="main_fragment"
+        tools:layout="@layout/main_fragment" >
+        <action
+            android:id="@+id/action_mainFragment_to_chooseArithmeticOperationFragment"
+            app:destination="@id/chooseArithmeticOperationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chooseRangeNumbersFragment"
+        android:name="com.itenf.mathtimequiz.ui.main.ChooseRangeNumbersFragment"
+        android:label="choose_range_numbers_fragment"
+        tools:layout="@layout/choose_range_numbers_fragment" >
+        <action
+            android:id="@+id/action_chooseRangeNumbersFragment_to_playFieldFragment"
+            app:destination="@id/playFieldFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/playFieldFragment"
+        android:name="com.itenf.mathtimequiz.ui.main.PlayFieldFragment"
+        android:label="play_field_fragment"
+        tools:layout="@layout/play_field_fragment" >
+        <action
+            android:id="@+id/action_playFieldFragment_to_scoreFragment"
+            app:destination="@id/scoreFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/scoreFragment"
+        android:name="com.itenf.mathtimequiz.ui.main.ScoreFragment"
+        android:label="score_fragment"
+        tools:layout="@layout/score_fragment" >
+        <action
+            android:id="@+id/action_scoreFragment_to_chooseArithmeticOperationFragment"
+            app:destination="@id/chooseArithmeticOperationFragment" />
+    </fragment>
+</navigation>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/playfieldConstraintLayout"
@@ -82,46 +83,42 @@
         app:layout_constraintStart_toEndOf="@+id/EditTextNumber1"
         app:layout_constraintTop_toTopOf="@+id/EditTextNumber1" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/answer1Btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
-        android:background="@color/neutralAnswerButtonColor"
         android:text="@string/answer"
         app:layout_constraintBottom_toTopOf="@+id/answer3Btn"
         app:layout_constraintEnd_toStartOf="@+id/answer2Btn"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/answer2Btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/neutralAnswerButtonColor"
         android:text="@string/answer"
         app:layout_constraintBottom_toBottomOf="@+id/answer1Btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/answer1Btn" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/answer3Btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="248dp"
-        android:background="@color/neutralAnswerButtonColor"
         android:text="@string/answer"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/answer4Btn"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/answer4Btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/neutralAnswerButtonColor"
         android:text="@string/answer"
         app:layout_constraintBottom_toBottomOf="@+id/answer3Btn"
         app:layout_constraintEnd_toEndOf="parent"

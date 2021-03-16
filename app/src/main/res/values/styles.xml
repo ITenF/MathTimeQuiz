@@ -1,10 +1,85 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- For the background of the app -->
+        <item name="android:colorBackground">@color/backgroundColor</item>
+        <!--for the color of the top statusbar -->
+        <item name="android:colorPrimaryDark">@color/backgroundColor</item>
+        <!--for the color of the buttons etc -->
+        <item name="colorPrimary">@color/primaryColor</item>
+        <!--for the color of the text on the buttons -->
+        <item name="colorOnPrimary">@color/primaryTextColor</item>
+       <!--for the color of for instance the progressbar or floating buttons -->
+        <item name="colorSecondary">@color/secondaryColor</item>
+        <!--item name="android:textColorPrimary">@color/primaryTextColor</item>
+        <item name="android:textColorSecondary">@color/secondaryTextColor</item-->
+        <!--this item is invoked in app theme to override the contained material button-->
+        <item name="materialButtonStyle">@style/myCustomContainedButton</item>
+        <!--this item is invoked in app theme to override the outlined material button-->
+        <item name="materialButtonOutlinedStyle">@style/myCustomOutlinedButton</item>
+        <!--this item is invoked in app theme to override the outlined material button-->
+    </style>
+    <!--Base application theme ends here-->
+
+    <!--theming of contained button begins here-->
+    <!--parent name is to be give carefully-->
+    <style name="myCustomContainedButton" parent="Widget.MaterialComponents.Button">
+        <!--these all styles are implemented outside, because to get all the overridden attributes easily-->
+        <item name="android:layout_margin">3dp</item>
+    </style>
+    <!--theming of contained button ends here-->
+
+    <!--theming of outlined button begins here-->
+    <!--parent name is to be give carefully-->
+    <style name="myCustomOutlinedButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <!--these all styles are implemented outside, because to get all the overridden attributes easily-->
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">12dp</item>
+        <item name="android:strokeColor">@color/brownOrange</item>
+        <item name="color">@color/redForWrongAnswer</item>
+    </style>
+    <!--theming of outlined button ends here-->
+
+    <style name="Cut" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">12dp</item>
+    </style>
+
+
+    <style name="buttonChooseArithExpr" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">32dp</item>
+        <item name="android:layout_marginEnd">32dp</item>
+        <item name="android:gravity">start|center_vertical</item>
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:paddingRight">15dp</item>
+        <item name="android:paddingTop">15dp</item>
+        <item name="android:paddingBottom">15dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="buttonChooseRangeNumbers" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_margin">20dp</item>
+    </style>
+
+    <style name="buttonStartNewGame" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/purpleBrown</item>
+    </style>
+
+    <style name="textViewBlueGreenBackground" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textColor">@color/blueGreen</item>
+
+    </style>
+
+
+    <style name="buttonTheme" parent="Widget.MaterialComponents.Button">
+        <item name="android:textColor">@color/blueGreen</item>
+
     </style>
 
 </resources>

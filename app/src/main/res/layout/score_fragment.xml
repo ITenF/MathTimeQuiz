@@ -5,7 +5,8 @@
     android:id="@+id/scoreConstraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.ScoreFragment" >
+    android:isScrollContainer="true"
+    tools:context=".ui.main.ScoreFragment">
 
     <TextView
         android:id="@+id/scoreText_TxtView"
@@ -18,68 +19,103 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/numberRangeTxtView"
+    <Button
+        android:id="@+id/scoreNumberBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="24dp"
-        android:text="@string/_1_10"
-        app:layout_constraintBottom_toTopOf="@+id/scoreNumberTxtView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scoreText_TxtView" />
-
-    <TextView
-        android:id="@+id/scoreNumberTxtView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="@color/brownOrange"
+        android:gravity="start|center_vertical"
         android:text="@string/_0"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textAllCaps="?android:attr/windowOverscan"
+        app:layout_constraintEnd_toStartOf="@+id/inTxtView"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scoreText_TxtView" />
 
     <TextView
-        android:id="@+id/inText_TxtView"
+        android:id="@+id/inTxtView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
         android:text="@string/in"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scoreNumberTxtView" />
+        app:layout_constraintBottom_toBottomOf="@+id/scoreNumberBtn"
+        app:layout_constraintEnd_toStartOf="@+id/timeBtn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/scoreNumberBtn"
+        app:layout_constraintTop_toTopOf="@+id/scoreNumberBtn" />
 
-    <TextView
-        android:id="@+id/timeTxtView"
+    <Button
+        android:id="@+id/timeBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
         android:text="@string/_0"
-        android:textSize="24sp"
+        android:textColor="@color/blueGreen"
+        app:layout_constraintBottom_toBottomOf="@+id/inTxtView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/inTxtView"
+        app:layout_constraintTop_toTopOf="@+id/inTxtView" />
+
+    <Button
+        android:id="@+id/typeArithmOpImageBtn"
+        style="@style/buttonChooseArithExpr"
+        android:layout_width="0dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="40dp"
+        android:drawableEnd="@drawable/ic_addsignroundbckgrnd28dpx28dp"
+        android:gravity="start|center_vertical"
+        android:text="@string/plus"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inText_TxtView" />
+        app:layout_constraintTop_toBottomOf="@+id/scoreNumberBtn" />
 
-    <TextView
-        android:id="@+id/highScoreTxtView"
+
+    <Button
+        android:id="@+id/getallenVanBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="41dp"
-        android:text="@string/_0"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="40dp"
+        android:backgroundTint="@color/blueGreen"
+        android:text="@string/number_range"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timeTxtView" />
+        app:layout_constraintTop_toBottomOf="@+id/typeArithmOpImageBtn" />
+
+    <Button
+        android:id="@+id/highScoreBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:backgroundTint="@color/brownOrange"
+        android:text="@string/_0"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toTopOf="@+id/startNewGameBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/startNewGameBtn"
+        style="@style/buttonStartNewGame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:text="@string/new_game"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="36dp"
+        android:background="@drawable/circle"
+        android:text="@string/start"
+        android:textColor="@color/backgroundColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="44dp"
+        android:text="@string/met_getallen_van"
+        android:textAllCaps="?android:attr/windowOverscan"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timeTxtView" />
+        app:layout_constraintTop_toBottomOf="@+id/typeArithmOpImageBtn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

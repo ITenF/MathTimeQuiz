@@ -70,4 +70,5 @@
     <string name="hoogsteScore">Hoogste score</string>
     <string name="nieuweHoogsteScore">NIEUWE hoogste score</string>
     <string name="hoogsteScoreTotNuToe">Hoogste score tot nu toe:</string>
+    <string name="mathspeed">MathSpeed</string>
 </resources>

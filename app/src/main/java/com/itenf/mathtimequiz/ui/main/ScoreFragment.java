@@ -64,54 +64,53 @@ public class ScoreFragment extends Fragment {
         highScoreBtn = view.findViewById(R.id.highScoreBtn);
         typeArithmOpImageBtn = view.findViewById(R.id.typeArithmOpImageBtn);
 
-        //zet de score
+        //set the text of the score
         String score = String.valueOf(mViewModel.getScore());
-        scoreNumberBtn.setText(String.valueOf(score + " sommen"));
+        scoreNumberBtn.setText(String.valueOf(score + this.getResources().getString(R.string.sommen) ));
 
-        //type sommen
+        //set the text on the button that shows the type of sums
         switch (mViewModel.getTypeArithmeticExpression()) {
             case "+":
-                typeArithmOpImageBtn.setText("Plus");
+                typeArithmOpImageBtn.setText( this.getResources().getString(R.string.plus));
                 typeArithmOpImageBtn.setCompoundDrawablesWithIntrinsicBounds(
                         null, null, this.getResources().getDrawable(R.drawable.ic_addsignroundbckgrnd28dpx28dp), null);
                 break;
             case "-":
-                typeArithmOpImageBtn.setText("Min");
+                typeArithmOpImageBtn.setText( this.getResources().getString(R.string.min));
                 typeArithmOpImageBtn.setCompoundDrawablesWithIntrinsicBounds(
                         null, null, this.getResources().getDrawable(R.drawable.ic_minsignroundbckgrnd28dpx28dp), null);
                 break;
             case "*":
-                typeArithmOpImageBtn.setText("Vermenigvuldig");
+                typeArithmOpImageBtn.setText( this.getResources().getString(R.string.vermenigvuldig));
                 typeArithmOpImageBtn.setCompoundDrawablesWithIntrinsicBounds(
                         null, null, this.getResources().getDrawable(R.drawable.ic_multiplysignroundbckgrnd28x28dp), null);
                 break;
             case "/":
-                typeArithmOpImageBtn.setText("Delen");
+                typeArithmOpImageBtn.setText( this.getResources().getString(R.string.delen));
                 typeArithmOpImageBtn.setCompoundDrawablesWithIntrinsicBounds(
                         null, null, this.getResources().getDrawable(R.drawable.ic_dividesignroundbckgrnd28x28dp), null);
                 break;
             default:
-                typeArithmOpImageBtn.setText("Niet gevonden");
+                typeArithmOpImageBtn.setText( this.getResources().getString(R.string.nietGevonden));
         }
 
-        String scoreKey = "HighScore_" + mViewModel.getTypeArithmeticExpression() + "_" + String.valueOf(mViewModel.getNumberRange()) + "_" + String.valueOf(mViewModel.getNumberOfSeconds());
-        Log.i("TagFloor", "ScoreFragment regel 64: scoreKey is: " + scoreKey);
+        //scoreKey is used as the key of the SharedPreferences to store the score as as key-value pair:
+        String scoreKey = "HighScore_" + mViewModel.getTypeArithmeticExpression() + "_" + mViewModel.getNumberRange() + "_" + String.valueOf(mViewModel.getNumberOfSeconds());
+        //Log.i("TagFloor", "ScoreFragment regel 64: scoreKey is: " + scoreKey);
 
         checkAndStoreHighScore(scoreKey);
-        //setText of the score and time
         // Log.i("TagFloor" , "ScoreFragment regel 55: score is: " + mViewModel.getScore());
 
 
         //reset score
         mViewModel.setScore(0);
-        //set range of numbers that are used to play with
-        numberRangeTxtView.setText("1 - " + mViewModel.getNumberRange());
-        //set Time of playing
-        timeBtn.setText(String.valueOf(mViewModel.getNumberOfSeconds()) + " sec");
+        //set the text of the range of numbers that are used to play with in the scoreFragment
+        numberRangeTxtView.setText( this.getResources().getString(R.string.streepjeEn1) + mViewModel.getNumberRange());
+        //set the text of the Time of playing in the scoreFragment
+        timeBtn.setText(String.valueOf(mViewModel.getNumberOfSeconds()) + " " +  this.getResources().getString(R.string.sec));
+
         //reset Timer
         mViewModel.setNumberOfSeconds(30);
-
-
         //set startGame button listener
         startGameBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,19 +135,19 @@ public class ScoreFragment extends Fragment {
         if (!sharedPref.contains(scoreKey)) {// if there is not already a highscore for this game make a new highscore for this combination
             editor.putInt(scoreKey, mViewModel.getScore());
             editor.apply();
-            highScoreBtn.setText("Hoogste score " + String.valueOf(mViewModel.getScore()) + " sommen");
+            highScoreBtn.setText(  this.getResources().getString(R.string.hoogsteScore) + " " + String.valueOf(mViewModel.getScore()) + " " +  this.getResources().getString(R.string.sommen));
             //Log.i("TagFloor" , "ScoreFragment regel 135  REALLY NEW score is: " + mViewModel.getScore());
 
         } else if (sharedPref.getInt(scoreKey, 0) < mViewModel.getScore()) {//there is already a highscore for this combination so look if the new score is higher then the saved one in shared Pref
             //set mew highscore
             editor.putInt(scoreKey, mViewModel.getScore());
             editor.apply();
-            highScoreBtn.setText("NIEUWE hoogste score " + String.valueOf(mViewModel.getScore()) + " sommen");
+            highScoreBtn.setText( this.getResources().getString(R.string.nieuweHoogsteScore) + " " + String.valueOf(mViewModel.getScore()) +  " " +  this.getResources().getString(R.string.sommen));
             // Log.i("TagFloor" , "ScoreFragment regel 147 new score is: " + mViewModel.getScore());
 
         } else {//the new score is lower then the saved highscore so print the saved highscore in shared pref
             //Log.i("TagFloor" , "ScoreFragment regel 149 do nothing because the highscore is lower");}
-            highScoreBtn.setText("Hoogste score tot nu toe " + sharedPref.getInt(scoreKey, 0) + " sommen");
+            highScoreBtn.setText( this.getResources().getString(R.string.hoogsteScoreTotNuToe) + " " + sharedPref.getInt(scoreKey, 0) +  " " +  this.getResources().getString(R.string.sommen));
 
         }
 

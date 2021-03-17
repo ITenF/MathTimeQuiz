@@ -63,4 +63,11 @@
     <string name="getallen_van">Getallen van</string>
     <string name="getallen">Getallen</string>
     <string name="met_getallen_van">Met getallen van</string>
+    <string name="sommen">sommen</string>
+    <string name="nietGevonden">Niet gevonden</string>
+    <string name="streepjeEn1">1 -</string>
+    <string name="sec">sec</string>
+    <string name="hoogsteScore">Hoogste score</string>
+    <string name="nieuweHoogsteScore">NIEUWE hoogste score</string>
+    <string name="hoogsteScoreTotNuToe">Hoogste score tot nu toe:</string>
 </resources>

@@ -16,7 +16,7 @@
     <color name="greenForRightAnswer">#2BA697</color>
     <color name="neutralAnswerButtonColor">#8099A8</color>
     /*my own colortheme*/
-    <color name = "blueGreen">#FF6BB0BF</color>
+    <color name = "blueGreen">#6BB0BF</color>
     <color name = "yellowOrange">#F2B680</color>
     <color name = "brownOrange">#D99873</color>
     <color name = "purpleBrown">#735755</color>

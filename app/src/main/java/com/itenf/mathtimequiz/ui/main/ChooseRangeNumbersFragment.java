@@ -46,9 +46,11 @@ public class ChooseRangeNumbersFragment extends Fragment {
         //set the first button of the button togglegroup with range numbers as selected
         materialButtonToggleGroupRange = view.findViewById(R.id.rangeNumbers);
         materialButtonToggleGroupRange.check(R.id.text1_10_Btn);
+        mViewModel.setNumberRange(10);
         //set the first button of the button togglegroup with range seconds as selected
         materialButtonToggleGroupSeconds = view.findViewById(R.id.rangeSec);
         materialButtonToggleGroupSeconds.check(R.id.time30secBtn);
+        mViewModel.setNumberOfSeconds(30);
 
         //the onclick-listeners for the buttons
         view.findViewById(R.id.text1_10_Btn).setOnClickListener(new View.OnClickListener() {

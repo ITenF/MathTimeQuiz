@@ -65,18 +65,18 @@ public class ScoreFragment extends Fragment {
         typeArithmOpImageBtn = view.findViewById(R.id.typeArithmOpImageBtn);
 
         //set the text of the score
-        String score = String.valueOf(mViewModel.getScore());
-        scoreNumberBtn.setText(score + " " + R.string.sommen  );
+        String scoreBtnText = mViewModel.getScore() + " " + view.getResources().getString(R.string.sommen);
+        scoreNumberBtn.setText(scoreBtnText );
 
         //set the text on the button that shows the type of sums
         switch (mViewModel.getTypeArithmeticExpression()) {
             case "+":
-                typeArithmOpImageBtn.setText( this.getResources().getString(R.string.plus));
+                typeArithmOpImageBtn.setText( getResources().getString(R.string.plus));
                 typeArithmOpImageBtn.setCompoundDrawablesWithIntrinsicBounds(
                         null, null, this.getResources().getDrawable(R.drawable.ic_addsignroundbckgrnd28dpx28dp), null);
                 break;
             case "-":
-                typeArithmOpImageBtn.setText( this.getResources().getString(R.string.min));
+                typeArithmOpImageBtn.setText( getResources().getString(R.string.min));
                 typeArithmOpImageBtn.setCompoundDrawablesWithIntrinsicBounds(
                         null, null, this.getResources().getDrawable(R.drawable.ic_minsignroundbckgrnd28dpx28dp), null);
                 break;
@@ -105,9 +105,11 @@ public class ScoreFragment extends Fragment {
         //reset score
         mViewModel.setScore(0);
         //set the text of the range of numbers that are used to play with in the scoreFragment
-        numberRangeTxtView.setText( R.string.streepjeEn1 + mViewModel.getNumberRange());
+        String numberRangeText = getResources().getString(R.string.streepjeEn1) + mViewModel.getNumberRange();
+        numberRangeTxtView.setText(numberRangeText );
         //set the text of the Time of playing in the scoreFragment
-        timeBtn.setText(mViewModel.getNumberOfSeconds() + " " +  R.string.sec);
+        String timeBtnText = mViewModel.getNumberOfSeconds() + " " +  getResources().getString(R.string.sec);
+        timeBtn.setText(timeBtnText);
 
         //reset Timer
         mViewModel.setNumberOfSeconds(30);
@@ -132,23 +134,28 @@ public class ScoreFragment extends Fragment {
 
 
         //Log.i("TagFloor" , "ScoreFragment regel 131  method checkAndStoreHighScore is started");
+        String score = String.valueOf(mViewModel.getScore());
+        String textHighscore;
         if (!sharedPref.contains(scoreKey)) {// if there is not already a highscore for this game make a new highscore for this combination
             editor.putInt(scoreKey, mViewModel.getScore());
             editor.apply();
-            highScoreBtn.setText(  R.string.hoogsteScore + " " + mViewModel.getScore() + " " +  R.string.sommen);
+            textHighscore =  getResources().getString(R.string.hoogsteScore) + " " + score + " " + getResources().getString(R.string.sommen);
+            highScoreBtn.setText( textHighscore);
             //Log.i("TagFloor" , "ScoreFragment regel 135  REALLY NEW score is: " + mViewModel.getScore());
 
         } else if (sharedPref.getInt(scoreKey, 0) < mViewModel.getScore()) {//there is already a highscore for this combination so look if the new score is higher then the saved one in shared Pref
             //set mew highscore
             editor.putInt(scoreKey, mViewModel.getScore());
             editor.apply();
-            highScoreBtn.setText( R.string.nieuweHoogsteScore + " " + mViewModel.getScore() +  " " +  R.string.sommen);
+            textHighscore = getResources().getString(R.string.nieuweHoogsteScore) + " " + score +  " " +  getResources().getString(R.string.sommen);
+            highScoreBtn.setText( textHighscore );
             // Log.i("TagFloor" , "ScoreFragment regel 147 new score is: " + mViewModel.getScore());
 
 
         } else {//the new score is lower then the saved highscore so print the saved highscore in shared pref
             //Log.i("TagFloor" , "ScoreFragment regel 149 do nothing because the highscore is lower");}
-            highScoreBtn.setText( R.string.hoogsteScoreTotNuToe + " " + sharedPref.getInt(scoreKey, 0) +  " " +  R.string.sommen);
+            textHighscore = getResources().getString(R.string.hoogsteScoreTotNuToe) + " " + sharedPref.getInt(scoreKey, 0) +  " " + getResources().getString(R.string.sommen);
+            highScoreBtn.setText(textHighscore );
 
         }
 

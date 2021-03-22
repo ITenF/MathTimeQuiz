@@ -1,16 +1,12 @@
 package com.itenf.mathtimequiz.ui.main;
 
-import androidx.core.util.TimeUtils;
 import androidx.lifecycle.ViewModelProvider;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
-
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.util.Log;
@@ -20,16 +16,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import com.itenf.mathtimequiz.R;
-
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Locale;
-import java.util.Random;
-import java.util.concurrent.TimeUnit;
+
 
 public class PlayFieldFragment extends Fragment {
 
@@ -49,7 +39,6 @@ public class PlayFieldFragment extends Fragment {
     NavController navController;
 
 
-    DecimalFormat df2 = new DecimalFormat("##0.00");
 
     public static PlayFieldFragment newInstance() {
         return new PlayFieldFragment();
@@ -62,12 +51,7 @@ public class PlayFieldFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        setHasOptionsMenu(false);
 
-    }
 
     public void onViewCreated(@NonNull final View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -91,70 +75,40 @@ public class PlayFieldFragment extends Fragment {
         answer1Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick( View view) {
-                if(mViewModel.getTypeArithmeticExpression().equals("/")){
-                    checkAnswerDivision(answer1Button);
-                }else{
-                    checkAnswer(answer1Button);
-                }
-
+                checkAnswer(answer1Button);
             }
         });
         answer2Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick( View view) {
-                if(mViewModel.getTypeArithmeticExpression().equals("/")){
-                    checkAnswerDivision(answer2Button);
-                }else{
-                    checkAnswer(answer2Button);
-                }
+                checkAnswer(answer2Button);
             }
         });
         answer3Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick( View view) {
-                if(mViewModel.getTypeArithmeticExpression().equals("/")){
-                    checkAnswerDivision(answer3Button);
-                }else{
-                    checkAnswer(answer3Button);
-                }
+                checkAnswer(answer3Button);
             }
         });
         answer4Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick( View view) {
-                if(mViewModel.getTypeArithmeticExpression().equals("/")){
-                    checkAnswerDivision(answer4Button);
-                }else{
-                    checkAnswer(answer4Button);
-                }
+                checkAnswer(answer4Button);
             }
         });
 
         //make first sum
         mViewModel.setScore(0);
-        String typeOfArithExpr = mViewModel.getTypeArithmeticExpression();
-        if(typeOfArithExpr.equals("+") || typeOfArithExpr.equals("-") || typeOfArithExpr.equals("*") ) {
-            int correctAnswer = makeSumAndSetSumInPlayField(mViewModel.getTypeArithmeticExpression());
-            mViewModel.setCorrectAnswer(correctAnswer);
-            //Log.i("TagFloor" , "PlayFieldFragment.java line 73 correctAnswer is" + correctAnswer);
-            //set Answer buttons
-            setAnswerButtons();
-        }else{
-            Double correctAnsDbl = makeSumAndSetSumInPlayFieldForDivision();
-            mViewModel.setCorrectAnswerDivDbl(correctAnsDbl);
-            setAnswerButtonsForDivision();
-        }
+        int correctAnswer = makeSumAndSetSumInPlayField(mViewModel.getTypeArithmeticExpression());
+        mViewModel.setCorrectAnswer(correctAnswer);
+        setAnswerButtons();
         setTheTimerAndProgressbar(mViewModel.getNumberOfSeconds());
-
     }
 
     //create a random number between the range that is chosen 1-10 or 1-200
-    public int getRandomNumber(){
-       int max = mViewModel.getNumberRange();
-        //Log.i("TagFloor" , "PlayFieldFragment regel 49: max is: " + max);
+    public int getRandomNumber( int maxValue){
         int min = 1;
-        int randNumber = (int)(Math.random() * (max - min + 1) + min);
-        //Log.i("TagFloor" , "PlayFieldFragment regel 85: randNumber is: " + randNumber);
+        int randNumber = (int)(Math.random() * (maxValue - min + 1) + min);
        return randNumber;
     }
 
@@ -162,23 +116,34 @@ public class PlayFieldFragment extends Fragment {
     //make a new sum from the chosen artithmetic expression,and Do set it in the textfields of the playfield and remember
     public int makeSumAndSetSumInPlayField(String typeOfArithmeticExpr){
         //make the first number of the sum
-        int firstNumber = getRandomNumber();
+        int firstNumber = getRandomNumber(mViewModel.getNumberRange());
         firstNumberTxtView.setText(String.valueOf(firstNumber));
-        //look if the sum must be + - * or all
+        //set type of sum
         arithmeticExpTxtView.setText(typeOfArithmeticExpr);
         //make the second number of the sum
-        int secondNumber = getRandomNumber();
-        secondNumberTxtView.setText(String.valueOf(secondNumber));
+        int secondNumber = getRandomNumber(mViewModel.getNumberRange());
         //look what the correct answer of the sum is
         int answerInt=0;
         if (typeOfArithmeticExpr.equals("+")){
             answerInt = firstNumber + secondNumber;
         }
         if (typeOfArithmeticExpr.equals("-")){
+            // to make sure there are no negative numbers in answers
+            if (secondNumber >= firstNumber){
+                secondNumber = getRandomNumber(firstNumber);
+            }
             answerInt = firstNumber - secondNumber;
         }
         if (typeOfArithmeticExpr.equals("*")){
             answerInt = firstNumber * secondNumber;
+        }
+        secondNumberTxtView.setText(String.valueOf(secondNumber));
+        // !!!you make the division   (firstnumber*secondnumber)  / firstnumber = secondnumber  In this way you make sure there is a integer as an answerInt
+        if (typeOfArithmeticExpr.equals("/")){
+            int newFirstNumber = firstNumber*secondNumber;
+            firstNumberTxtView.setText(String.valueOf(newFirstNumber));
+            secondNumberTxtView.setText(String.valueOf(firstNumber));
+            answerInt = secondNumber;
         }
         return answerInt;
     }
@@ -187,55 +152,30 @@ public class PlayFieldFragment extends Fragment {
     //make a new sum from the chosen artithmetic expression, but don't set it in the textfields of the playfield, this is used to make the false answer buttons
     public int makeSum(String typeOfArithmeticExpr){
         //make the first number of the sum
-        int firstNumber = getRandomNumber();
+        int firstNumber = getRandomNumber(mViewModel.getNumberRange());
         //make the second number of the sum
-        int secondNumber = getRandomNumber();
+        int secondNumber = getRandomNumber(mViewModel.getNumberRange());
         //look what the correct answer of the sum is
         int answerInt=0;
         if (typeOfArithmeticExpr.equals("+")){
             answerInt = firstNumber + secondNumber;
         }
         if (typeOfArithmeticExpr.equals("-")){
-            answerInt = firstNumber - secondNumber;
+            //answerInt = firstNumber - secondNumber;
+            answerInt = getRandomNumber(mViewModel.getNumberRange());
+
         }
         if (typeOfArithmeticExpr.equals("*")){
             answerInt = firstNumber * secondNumber;
         }
+        if (typeOfArithmeticExpr.equals("/")){
+            // you make the division   (firstnumber*secondnumber)  / firstnumber = secondnumber  In this way you make sure there is a integer as an answerInt
+            int newFirstNumber = firstNumber*secondNumber;
+            //firstNumberTxtView.setText(String.valueOf(newFirstNumber));
+            answerInt = newFirstNumber/firstNumber;
+        }
         return answerInt;
     }
-
-    //For DIVISION make a new sum from the chosen artithmetic expression,and Do set it in the textfields of the playfield and remember
-    public Double makeSumAndSetSumInPlayFieldForDivision(){
-        //make the first number of the sum
-        int firstNumber = getRandomNumber();
-        firstNumberTxtView.setText(String.valueOf(firstNumber));
-        //look if the sum must be + - * or all
-        arithmeticExpTxtView.setText(mViewModel.getTypeArithmeticExpression());
-        //make the second number of the sum
-        int secondNumber = getRandomNumber();
-        secondNumberTxtView.setText(String.valueOf(secondNumber));
-        //look what the correct answer of the sum is
-        double answerDbl = (double)firstNumber / (double)secondNumber;
-        //Log.i("TagFloor" , "PlayFieldFragment regel 182: real Double without format is " + answerDbl);
-        return answerDbl;
-
-    }
-
-    //make a new division sum, but don't set it in the textfields of the playfield, this is used to make the false answer buttons
-    public Double makeDvisionSum(){
-        //make the first number of the sum
-        int firstNumber = getRandomNumber();
-        //Log.i("TagFloor" , "PlayFieldFragment regel 223: firstNumber of other sums is: "  + firstNumber);
-        //make the second number of the sum
-        int secondNumber = getRandomNumber();
-        //Log.i("TagFloor" , "PlayFieldFragment regel 226: secondnumber of other sums is: "  + secondNumber);
-        //look what the correct answer of the sum is
-        Double answerDbl;
-        answerDbl = ((double)firstNumber / (double)secondNumber);
-        //Log.i("TagFloor" , "PlayFieldFragment regel 225: var answerDbl of all the other answers are : "  + answerDbl);
-        return answerDbl;
-    }
-
 
 
     //set right anwser in one of the 4 buttons en make the text of the other buttons randomly different from the right answer for numbers 1-10 they all have to be number
@@ -274,62 +214,10 @@ public class PlayFieldFragment extends Fragment {
             nrInArray = integerList1of4.get(i);
             buttonArrayList.get(nrInArray).setText(String.valueOf(newAnswerArrayList.get(i-1)));
         }
-        //Log.i("TagFloor" , "PlayFieldFragment regel 141: correct answer is: " + mViewModel.getCorrectAnswer());
-
     }
 
-    //set right anwser in one of the 4 buttons en make the text of the other buttons randomly different from the right answer for numbers 1-10 they all have to be number
-    public void setAnswerButtonsForDivision(){
-        //make an arrayList of 3 answers that are different then the corrrect answer en different from each other
-        ArrayList<String> newAnswerArrayList = new ArrayList<>();
-        for(int i=0 ; i<3 ; i++) {
-            double newAnswer =  makeDvisionSum();
-           // Log.i("TagFloor" , "PlayFieldFragment regel 285: answer is: " + mViewModel.getCorrectAnswerDivDbl());
 
-            double correctAnswerDbl = mViewModel.getCorrectAnswerDivDbl();
-            //check if newAnswer is not the same as the correct answer or already is made as an anser or is smaller then the correctanswer-10   or is bigger then the correct answer +10
-            while (newAnswer == correctAnswerDbl || newAnswerArrayList.contains(newAnswer) || newAnswer < correctAnswerDbl-10 || newAnswer > correctAnswerDbl+10)
-            {
-                newAnswer = makeDvisionSum();
-            }
-            newAnswerArrayList.add(df2.format(newAnswer));
-        }
-
-        //make an array of the 4 answerbuttons
-        ArrayList<Button> buttonArrayList = new ArrayList<>();
-        buttonArrayList.add(answer1Button);
-        buttonArrayList.add(answer2Button);
-        buttonArrayList.add(answer3Button);
-        buttonArrayList.add(answer4Button);
-        //make a ArrayList of 4 integers with values 1,2,3,4
-        ArrayList <Integer> integerList1of4 = new ArrayList<>(4);
-        //fill the ArrayList met numbers 1 t/m 4
-        for (int i=0 ; i<4 ; i++){
-            integerList1of4.add(i);
-        }
-        //Shuffle the numbers in the arrayList:
-        Collections.shuffle(integerList1of4);
-        //set for each of the answerButton the answerText. The button that is the first number in the array gets the right answer
-        int nrInArray = integerList1of4.get(0);
-        //set correct answer text with 2 decimals on one of the buttons
-        //String correctAnswerDbl = mViewModel.getCorrectAnswerDbl();
-        //String correctAsnwerStr = String.format("%.2f", correctAnswerDbl);
-       // String correctAsnwerStr2 = df2.format(correctAnswerDbl);
-
-        buttonArrayList.get(nrInArray).setText(df2.format(mViewModel.getCorrectAnswerDivDbl()));
-        //for the other buttons
-        //make new sums and answers and make sure there are three different answers and not the same as the correctAnswer of the real sum
-        for (int i=1 ; i<4 ; i++){
-            nrInArray = integerList1of4.get(i);
-            //get the next answer in the false answer array:
-           String otherAnswerStr = newAnswerArrayList.get(i-1);
-           // String otherAnswerStr = String.format("%.2f" , otherAnswerDbl);
-            //String otherAsnwerStr2 = df2.format(otherAnswerDbl);
-            buttonArrayList.get(nrInArray).setText(otherAnswerStr);
-        }
-        //Log.i("TagFloor" , "PlayFieldFragment regel 141: correct answer is: " + mViewModel.getCorrectAnswer());
-    }
-
+//Checks if the answer on the button is the correct answer that is stored in the mViewmodel
     public void checkAnswer( Button buttonWithNummber){
         //get the number of the button
         int buttonNumber = Integer.parseInt(String.valueOf(buttonWithNummber.getText()));
@@ -357,34 +245,7 @@ public class PlayFieldFragment extends Fragment {
 
     }
 
-    //FOR DIVISION SUMS
-    public void checkAnswerDivision( Button buttonWithNummber){
-        //get the number of the button
-        String buttonAnswerStr = String.valueOf(buttonWithNummber.getText());
-        //Log.i("TagFloor" , "PlayFieldFragment regel 337: buttonAnswerStr = " + buttonAnswerStr);
-        if (buttonAnswerStr.equals(df2.format(mViewModel.getCorrectAnswerDivDbl()))){
-            //raise the score with 1
-            mViewModel.setScore(mViewModel.getScore()+1);
-            scoreTxtView.setText(String.valueOf(mViewModel.getScore()));
-            //set the background of the right button to green
-            //buttonWithNummber.setBackgroundResource(R.color.greenForRightAnswer);
-            buttonWithNummber.setBackgroundColor(getActivity().getResources().getColor(R.color.greenForRightAnswer));
-            //wait for 1 second to see the green color to show that the answer was right
-            Handler h = new Handler();
-            h.postDelayed(rDiv, 250); // <-- the "250" is the delay time in miliseconds.
-        }else{
-            //buttonWithNummber.setBackgroundResource(R.color.redForWrongAnswer);
-            buttonWithNummber.setBackgroundColor(getActivity().getResources().getColor(R.color.redForWrongAnswer));
-            answer1Button.setClickable(false);
-            answer2Button.setClickable(false);
-            answer3Button.setClickable(false);
-            answer4Button.setClickable(false);
-            Handler wait = new Handler();
-            //set wait punishment for wrong answer by disabling buttons
-            wait.postDelayed(rWait, 1500); // <-- the "1000" is the delay time in miliseconds.
-        }
 
-    }
 
     //this will be executed after the right answer is chosen, with a delay of 1 sec
     Runnable r = new Runnable() {
@@ -408,23 +269,6 @@ public class PlayFieldFragment extends Fragment {
     };
 
 
-
-    //FOR DIVISION SUMS this will be executed after the right answer is chosen, with a delay of 1 sec
-    Runnable rDiv = new Runnable() {
-        @Override
-        public void run(){
-            //remove the backgroundcolor of all the buttons
-            answer1Button.setBackgroundColor(getActivity().getResources().getColor(R.color.primaryColor));
-            answer2Button.setBackgroundColor(getActivity().getResources().getColor(R.color.primaryColor));
-            answer3Button.setBackgroundColor(getActivity().getResources().getColor(R.color.primaryColor));
-            answer4Button.setBackgroundColor(getActivity().getResources().getColor(R.color.primaryColor));
-            //make new sum in playfield and store new correctanswer
-            Double newCorrectAnswer = makeSumAndSetSumInPlayFieldForDivision();
-            mViewModel.setCorrectAnswerDivDbl(newCorrectAnswer);
-            setAnswerButtonsForDivision();
-        }
-    };
-
     //Stop the execution of the program for punishment for a wrong answer: after a while the buttons will be clickable again
     Runnable rWait = new Runnable() {
         @Override
@@ -441,7 +285,7 @@ public class PlayFieldFragment extends Fragment {
 
         final long numberOfMiliSeconds = numSec *1000;
         //Log.i("TagFloor"  , "PlayFieldFragment line 223 numberOfMiliseconds is:"  + numberOfMiliSeconds);
-        final int maxTime = (int)(long)numberOfMiliSeconds;
+        final int maxTime = (int)numberOfMiliSeconds;
         progressBar.setMax(maxTime);
         countDownTimer = new CountDownTimer(numberOfMiliSeconds, 1000) {
 

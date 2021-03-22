@@ -60,6 +60,7 @@ public class ChooseRangeNumbersFragment extends Fragment {
             }
         });
 
+
         view.findViewById(R.id.text_1_20Btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

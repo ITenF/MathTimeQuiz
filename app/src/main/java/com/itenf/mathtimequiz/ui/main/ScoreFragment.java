@@ -35,8 +35,6 @@ public class ScoreFragment extends Fragment {
     private Button startGameBtn;
     private Button typeArithmOpImageBtn;
 
-    ArrayList<ArrayList<String>> highScoreList;
-
 
     public static ScoreFragment newInstance() {
         return new ScoreFragment();

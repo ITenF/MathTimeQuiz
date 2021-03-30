@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: "androidx.navigation.safeargs"
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 29
@@ -9,8 +10,8 @@ android {
         applicationId "com.itenf.mathtimequiz"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 3
-        versionName "3.0"
+        versionCode 4
+        versionName "4.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

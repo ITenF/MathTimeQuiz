@@ -71,12 +71,21 @@ public class ChooseArithmeticOperationFragment extends Fragment {
             }
         });
 
+        view.findViewById(R.id.gameTxtImageBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gameBtnOnClick();
+            }
+        });
+
     }
 
 
     public void goToChooseRangeNumbersFragment(){
         Navigation.findNavController(view).navigate(R.id.action_chooseArithmeticOperationFragment_to_chooseRangeNumbersFragment);
     }
+
+
 
     public void plusBtnOnClick(){
         mViewModel.setTypeArithmeticExpression("+");
@@ -98,6 +107,11 @@ public class ChooseArithmeticOperationFragment extends Fragment {
         goToChooseRangeNumbersFragment();
     }
 
+    public void gameBtnOnClick(){
+        mViewModel.setTypeArithmeticExpression("#");
+        Navigation.findNavController(view).navigate(R.id.action_chooseArithmeticOperationFragment_to_spel_Fragment);
+
+    }
 
 
 }

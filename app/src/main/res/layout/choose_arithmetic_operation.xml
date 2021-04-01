@@ -76,17 +76,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/multiplyTxtImageBtn" />
 
-    <Button
-        android:id="@+id/gameTxtImageBtn"
-        style="@style/buttonChooseArithExpr"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="35dp"
-        android:layout_marginEnd="32dp"
-        android:drawableEnd="@drawable/ic_dividesignroundbckgrnd28x28dp"
-        android:gravity="start|center_vertical"
-        android:text="@string/wedstrijd"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divideTxtImageBtn" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

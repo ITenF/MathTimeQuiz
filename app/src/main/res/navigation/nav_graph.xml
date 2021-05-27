@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_chooseArithmeticOperationFragment_to_chooseRangeNumbersFragment"
             app:destination="@id/chooseRangeNumbersFragment" />
+        <action
+            android:id="@+id/action_chooseArithmeticOperationFragment_to_spel_Fragment"
+            app:destination="@id/spel_Fragment" />
     </fragment>
     <fragment
         android:id="@+id/mainFragment"
@@ -50,4 +53,9 @@
             android:id="@+id/action_scoreFragment_to_chooseArithmeticOperationFragment"
             app:destination="@id/chooseArithmeticOperationFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/spel_Fragment"
+        android:name="com.itenf.mathtimequiz.Spel_Fragment"
+        android:label="fragment_spel_"
+        tools:layout="@layout/fragment_spel_" />
 </navigation>

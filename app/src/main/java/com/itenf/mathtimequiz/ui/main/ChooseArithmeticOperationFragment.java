@@ -71,12 +71,15 @@ public class ChooseArithmeticOperationFragment extends Fragment {
             }
         });
 
+
     }
 
 
     public void goToChooseRangeNumbersFragment(){
         Navigation.findNavController(view).navigate(R.id.action_chooseArithmeticOperationFragment_to_chooseRangeNumbersFragment);
     }
+
+
 
     public void plusBtnOnClick(){
         mViewModel.setTypeArithmeticExpression("+");
@@ -97,6 +100,7 @@ public class ChooseArithmeticOperationFragment extends Fragment {
         mViewModel.setTypeArithmeticExpression("/");
         goToChooseRangeNumbersFragment();
     }
+
 
 
 

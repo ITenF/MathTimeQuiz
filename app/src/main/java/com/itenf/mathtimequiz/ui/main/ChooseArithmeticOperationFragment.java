@@ -33,17 +33,12 @@ public class ChooseArithmeticOperationFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        //observe lifecycle
-        getLifecycle().addObserver(new LifeCycleObserver());
-        //setHasOptionsMenu(false);
-        mViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
-    }
+
 
     public void onViewCreated(@NonNull final View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        mViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
 
         //the onclick-listeners for the buttons
         view.findViewById(R.id.plusTxtImageBtn).setOnClickListener(new View.OnClickListener() {
@@ -71,15 +66,18 @@ public class ChooseArithmeticOperationFragment extends Fragment {
             }
         });
 
+
     }
 
-
+    //go to next fragment: ChooseRangeNumbersFragment
     public void goToChooseRangeNumbersFragment(){
         Navigation.findNavController(view).navigate(R.id.action_chooseArithmeticOperationFragment_to_chooseRangeNumbersFragment);
     }
 
     public void plusBtnOnClick(){
         mViewModel.setTypeArithmeticExpression("+");
+        mViewModel.setNumberRange(10);
+        mViewModel.setNumberOfSeconds(30);
         goToChooseRangeNumbersFragment();
     }
 

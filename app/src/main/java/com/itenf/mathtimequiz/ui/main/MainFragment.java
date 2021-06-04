@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.itenf.mathtimequiz.LifeCycleObserver;
 import com.itenf.mathtimequiz.R;
 
 public class MainFragment extends Fragment  {
@@ -26,30 +27,28 @@ public class MainFragment extends Fragment  {
     private MainViewModel mViewModel;
     View view;
 
-
     public static MainFragment newInstance() {
         return new MainFragment();
     }
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-       // return inflater.inflate(R.layout.main_fragment, container, false);
         view = inflater.inflate(R.layout.main_fragment, container, false);
         return view;
     }
-
 
 
     public void onViewCreated(@NonNull final View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         mViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
-        // TODO: Use the ViewModel
 
         Handler h = new Handler();
-        h.postDelayed(r, 3000); // <-- the "1000" is the delay time in miliseconds.
+        h.postDelayed(r, 1000); // <-- the "1000" is the delay time in miliseconds.
+
 
     }
 

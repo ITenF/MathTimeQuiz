@@ -51,8 +51,6 @@ public class MainViewModel extends ViewModel {
     }
 
 
-
-
     public String getTypeArithmeticExpression() {
         return typeArithmeticExpression;
     }

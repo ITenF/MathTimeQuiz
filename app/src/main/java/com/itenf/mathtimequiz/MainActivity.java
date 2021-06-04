@@ -19,15 +19,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.main_activity);
-        //this is not necessary when you use a nav-graph
-        /*if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, MainFragment.newInstance())
-                    .commitNow();
-        }*/
 
         //To implement Viewmodel
-        final MainViewModel mViewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        //final MainViewModel mViewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
     }
 

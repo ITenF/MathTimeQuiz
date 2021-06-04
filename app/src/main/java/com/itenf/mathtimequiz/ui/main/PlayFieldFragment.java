@@ -37,6 +37,7 @@ public class PlayFieldFragment extends Fragment {
     private Button answer4Button;
     View view;
     NavController navController;
+    private int playScore;
 
 
 
@@ -99,6 +100,7 @@ public class PlayFieldFragment extends Fragment {
 
         //make first sum
         mViewModel.setScore(0);
+        playScore = 0;
         int correctAnswer = makeSumAndSetSumInPlayField(mViewModel.getTypeArithmeticExpression());
         mViewModel.setCorrectAnswer(correctAnswer);
         setAnswerButtons();
@@ -108,8 +110,7 @@ public class PlayFieldFragment extends Fragment {
     //create a random number between the range that is chosen 1-10 or 1-200
     public int getRandomNumber( int maxValue){
         int min = 1;
-        int randNumber = (int)(Math.random() * (maxValue - min + 1) + min);
-       return randNumber;
+       return  (int)(Math.random() * (maxValue - min + 1) + min);
     }
 
 
@@ -224,16 +225,24 @@ public class PlayFieldFragment extends Fragment {
         //the answer is not correct so turn the background color of the button red
         if (buttonNumber == mViewModel.getCorrectAnswer()){
             //raise the score with 1
-            mViewModel.setScore(mViewModel.getScore()+1);
-            scoreTxtView.setText(String.valueOf(mViewModel.getScore()));
+           // mViewModel.setScore(mViewModel.getScore()+1);
+            playScore++;
+            scoreTxtView.setText(String.valueOf(playScore));
             //set the background of the right button to green
-            buttonWithNummber.setBackgroundColor(getActivity().getResources().getColor(R.color.greenForRightAnswer));
-            //buttonWithNummber.getBackground().setBack(getActivity().getResources().getColor(R.color.greenForRightAnswer));
+            try {
+                buttonWithNummber.setBackgroundColor(getActivity().getResources().getColor(R.color.greenForRightAnswer));
+            }catch (Exception e){
+                Log.i("Exception" , e.toString() + " color green is not available");
+            }
             //wait for 1 second to see the green color to show that the answer was right
             Handler h = new Handler();
             h.postDelayed(r, 250); // <-- the "250" is the delay time in miliseconds to be able to see the color change before the new sum appears.
         }else{
-            buttonWithNummber.setBackgroundColor(getActivity().getResources().getColor(R.color.redForWrongAnswer));
+            try {
+                buttonWithNummber.setBackgroundColor(getActivity().getResources().getColor(R.color.redForWrongAnswer));
+            }catch (Exception e){
+                Log.i("Exception" , e.toString() + " color is not available");
+            }
             answer1Button.setClickable(false);
             answer2Button.setClickable(false);
             answer3Button.setClickable(false);
@@ -246,20 +255,35 @@ public class PlayFieldFragment extends Fragment {
     }
 
 
-
     //this will be executed after the right answer is chosen, with a delay of 1 sec
     Runnable r = new Runnable() {
         @Override
         public void run(){
             //remove the backgroundcolor of all the buttons
            //answer1Button.setBackgroundResource(R.color.neutralAnswerButtonColor);
-            answer1Button.setBackgroundColor(getActivity().getResources().getColor(R.color.primaryColor));
+            try {
+                answer1Button.setBackgroundColor(getActivity().getResources().getColor(R.color.primaryColor));
+            }catch (Exception e){
+                Log.i("Exception" , e.toString() + " color primary is not available");
+            }
             //answer2Button.setBackgroundResource(R.color.neutralAnswerButtonColor);
-            answer2Button.setBackgroundColor(getActivity().getResources().getColor(R.color.primaryColor));
+            try {
+                answer2Button.setBackgroundColor(getActivity().getResources().getColor(R.color.primaryColor));
+            }catch (Exception e){
+                Log.i("Exception" , e.toString() + " color primary is not available");
+            }
             //answer3Button.setBackgroundResource(R.color.neutralAnswerButtonColor);
-            answer3Button.setBackgroundColor(getActivity().getResources().getColor(R.color.primaryColor));
+            try {
+                answer3Button.setBackgroundColor(getActivity().getResources().getColor(R.color.primaryColor));
+            }catch (Exception e){
+                Log.i("Exception" , e.toString() + " color primary is not available");
+            }
             //answer4Button.setBackgroundResource(R.color.neutralAnswerButtonColor);
-            answer4Button.setBackgroundColor(getActivity().getResources().getColor(R.color.primaryColor));
+            try {
+                answer4Button.setBackgroundColor(getActivity().getResources().getColor(R.color.primaryColor));
+            }catch (Exception e){
+                Log.i("Exception" , e.toString() + " color primary is not available");
+            }
 
             //make new sum in playfield and store new correctanswer
             int newCorrectAnswer = makeSumAndSetSumInPlayField(mViewModel.getTypeArithmeticExpression());
@@ -292,7 +316,8 @@ public class PlayFieldFragment extends Fragment {
             long maxWaarde = numberOfMiliSeconds;
             @Override
             public void onTick(long numberOfMiliSeconds) {
-                nrOfSecTxtView.setText(String.valueOf(numberOfMiliSeconds/1000) + " sec");
+                nrOfSecTxtView.setText(
+                        (int) ((numberOfMiliSeconds/1000) + R.string.sec));
                 progressBar.setProgress((int) (maxWaarde - numberOfMiliSeconds));
             }
 
@@ -313,7 +338,24 @@ public class PlayFieldFragment extends Fragment {
         if (this.isVisible()) {
             //go to Score Fragment
             Navigation.findNavController(view).navigate(R.id.action_playFieldFragment_to_scoreFragment);
+            mViewModel.setScore(playScore);
         }
     }
+
+    //BUGFIX when the app is resumed after being in the background sometimes the timer and progressbar don't start up again. To prevent this from happening now everytime the
+    // app is paused the user has to start the game again from the beginning
+    @Override
+    public void onResume(){
+        super.onResume();
+        //Log.i("LOG_TAG" , "onResume");
+        playScore = 0;
+        scoreTxtView.setText("0");
+        progressBar.setProgress(0);
+        countDownTimer.cancel();
+        setTheTimerAndProgressbar(mViewModel.getNumberOfSeconds());
+    }
+
+
+
 
 }

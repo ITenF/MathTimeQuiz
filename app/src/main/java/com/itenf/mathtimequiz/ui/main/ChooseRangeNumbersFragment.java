@@ -46,11 +46,11 @@ public class ChooseRangeNumbersFragment extends Fragment {
         //set the first button of the button togglegroup with range numbers as selected
         materialButtonToggleGroupRange = view.findViewById(R.id.rangeNumbers);
         materialButtonToggleGroupRange.check(R.id.text1_10_Btn);
-        mViewModel.setNumberRange(10);
+        //mViewModel.setNumberRange(10);
         //set the first button of the button togglegroup with range seconds as selected
         materialButtonToggleGroupSeconds = view.findViewById(R.id.rangeSec);
         materialButtonToggleGroupSeconds.check(R.id.time30secBtn);
-        mViewModel.setNumberOfSeconds(30);
+        //mViewModel.setNumberOfSeconds(30);
 
         //the onclick-listeners for the buttons
         view.findViewById(R.id.text1_10_Btn).setOnClickListener(new View.OnClickListener() {
@@ -132,14 +132,12 @@ public class ChooseRangeNumbersFragment extends Fragment {
     //For the number range
     public void text1_10_BtnOnClick(){
         mViewModel.setNumberRange(10);
-        //Log.i("TagFloor" , "ChooseRangeNumbersFragment line 90 numberRange is:"  + mViewModel.getNumberRange());
-        //Log.i("TagFloor" , "ChooseRangeNumbersFragment line 90 state button is:"  + getView().findViewById(R.id.text1_10_Btn).getMeasuredState());
-        getView().findViewById(R.id.text1_10_Btn).setSelected(true);
+        //getView().findViewById(R.id.text1_10_Btn).setSelected(true);
 
     }
     public void text1_20_BtnOnClick(){
         mViewModel.setNumberRange(20);
-        getView().findViewById(R.id.text_1_20Btn).setSelected(true);
+        //getView().findViewById(R.id.text_1_20Btn).setSelected(true);
     }
     public void text1_30_BtnOnClick(){ mViewModel.setNumberRange(30); }
     public void text1_40_BtnOnClick(){ mViewModel.setNumberRange(40); }

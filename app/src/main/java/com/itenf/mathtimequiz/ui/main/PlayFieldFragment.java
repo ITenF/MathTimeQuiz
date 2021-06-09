@@ -316,8 +316,14 @@ public class PlayFieldFragment extends Fragment {
             long maxWaarde = numberOfMiliSeconds;
             @Override
             public void onTick(long numberOfMiliSeconds) {
-                nrOfSecTxtView.setText(
-                        (int) ((numberOfMiliSeconds/1000) + R.string.sec));
+
+                try{
+                    nrOfSecTxtView.setText(
+                            (String.valueOf(numberOfMiliSeconds/1000) +  " "  + getActivity().getResources().getString(R.string.sec)));
+                }catch (Exception e){
+                    Log.i("LOG_TAG" ,  "String sec is niet gevonden "  + e );
+                }
+
                 progressBar.setProgress((int) (maxWaarde - numberOfMiliSeconds));
             }
 

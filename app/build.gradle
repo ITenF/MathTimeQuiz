@@ -9,8 +9,8 @@ android {
         applicationId "com.itenf.mathtimequiz"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 6
-        versionName "6.0"
+        versionCode 9
+        versionName "9.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

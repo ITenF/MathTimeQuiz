@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/playfieldConstraintLayout"
@@ -39,7 +38,8 @@
         android:autofillHints=""
         android:ems="10"
         android:hint="@string/_1234"
-        android:textSize="18sp"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/answer1Btn"
         app:layout_constraintEnd_toStartOf="@+id/arithmeticExprTxtbox"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,8 +52,7 @@
         android:autofillHints=""
         android:ems="10"
         android:hint="@string/_1234"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/arithmeticExprTxtbox"
+        android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/isTxtBox"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/arithmeticExprTxtbox"
@@ -65,7 +64,6 @@
         android:layout_height="wrap_content"
         android:text="@string/textOfUitkomst"
         android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextNumber2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/editTextNumber2"
@@ -76,8 +74,7 @@
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:text="@string/or_or_or"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/EditTextNumber1"
+        android:textSize="30sp"
         app:layout_constraintEnd_toStartOf="@+id/editTextNumber2"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/EditTextNumber1"
@@ -87,18 +84,20 @@
         android:id="@+id/answer1Btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_marginTop="50dp"
         android:text="@string/answer"
-        app:layout_constraintBottom_toTopOf="@+id/answer3Btn"
+        android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/answer2Btn"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EditTextNumber1" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/answer2Btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/answer"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/answer1Btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -108,18 +107,20 @@
         android:id="@+id/answer3Btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="248dp"
+        android:layout_marginTop="24dp"
         android:text="@string/answer"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/answer4Btn"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/answer1Btn" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/answer4Btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/answer"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/answer3Btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -129,21 +130,21 @@
         android:id="@+id/scoreTxtView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="60dp"
+        android:layout_marginTop="24dp"
         android:text="@string/_0"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scoreTextTxtView" />
 
     <TextView
         android:id="@+id/scoreTextTxtView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="150dp"
+        android:layout_marginTop="60dp"
         android:text="@string/score"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/answer3Btn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

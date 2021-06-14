@@ -83,16 +83,22 @@ public class ChooseArithmeticOperationFragment extends Fragment {
 
     public void minBtnOnClick(){
         mViewModel.setTypeArithmeticExpression("-");
+        mViewModel.setNumberRange(10);
+        mViewModel.setNumberOfSeconds(30);
         goToChooseRangeNumbersFragment();
     }
 
     public void multiplyBtnOnClick(){
         mViewModel.setTypeArithmeticExpression("*");
+        mViewModel.setNumberRange(10);
+        mViewModel.setNumberOfSeconds(30);
         goToChooseRangeNumbersFragment();
     }
 
     public void divisionBtnOnClick(){
         mViewModel.setTypeArithmeticExpression("/");
+        mViewModel.setNumberRange(10);
+        mViewModel.setNumberOfSeconds(30);
         goToChooseRangeNumbersFragment();
     }
 

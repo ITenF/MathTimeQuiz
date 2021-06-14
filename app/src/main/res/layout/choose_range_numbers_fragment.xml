@@ -13,11 +13,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="32dp"
         android:gravity="center"
         android:text="@string/kies_met_welke_getallen_de_sommen_worden_gemaakt"
-        android:textSize="24sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -112,26 +112,26 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="24dp"
         android:gravity="center"
         android:text="@string/kies_hoe_lang_het_spel_moet_duren"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView2"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollRange" />
 
 
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
+        android:layout_marginTop="24dp"
         android:scrollbars="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/startGameBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chooseTimeTxtView">
 
         <LinearLayout
             android:id="@+id/scrollButtonHorizontalLayout"
@@ -153,24 +153,24 @@
                     style="@style/myCustomOutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:strokeWidth="4dp"
-                    android:text="@string/_30sec" />
+                    android:text="@string/_30sec"
+                    app:strokeWidth="4dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/time45secBtn"
                     style="@style/myCustomOutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:strokeWidth="4dp"
-                    android:text="@string/_45sec" />
+                    android:text="@string/_45sec"
+                    app:strokeWidth="4dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/time60secBtn"
                     style="@style/myCustomOutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:strokeWidth="4dp"
-                    android:text="@string/_60sec" />
+                    android:text="@string/_60sec"
+                    app:strokeWidth="4dp" />
 
             </com.google.android.material.button.MaterialButtonToggleGroup>
 
@@ -182,13 +182,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="16dp"
         android:text="@string/start"
         android:textColor="@color/blueGreen"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

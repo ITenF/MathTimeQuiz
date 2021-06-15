@@ -40,6 +40,7 @@ public class ScoreFragment extends Fragment {
     private TextView highScoreBtn;
     private Button startGameBtn;
     private Button typeArithmOpImageBtn;
+    private Button homeButton;
 
 
     public static ScoreFragment newInstance() {
@@ -78,13 +79,20 @@ public class ScoreFragment extends Fragment {
         timeBtn = view.findViewById(R.id.timeBtn);
         numberRangeTxtView = view.findViewById(R.id.getallenVanBtn);
         startGameBtn = view.findViewById(R.id.startNewGameBtn);
+        homeButton = view.findViewById(R.id.homeBtn);
         highScoreBtn = view.findViewById(R.id.highScoreBtn);
         typeArithmOpImageBtn = view.findViewById(R.id.typeArithmOpImageBtn);
 
-        startGameBtn.setOnClickListener(new View.OnClickListener() {
+        homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(view).navigate(R.id.action_scoreFragment_to_chooseArithmeticOperationFragment);
+            }
+        });
+        startGameBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_scoreFragment_to_playFieldFragment);
             }
         });
 

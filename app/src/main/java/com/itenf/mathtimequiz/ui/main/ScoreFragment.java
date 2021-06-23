@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.itenf.mathtimequiz.MainActivity;
@@ -41,7 +42,7 @@ public class ScoreFragment extends Fragment {
     private Button startGameBtn;
     private Button typeArithmOpImageBtn;
     private Button homeButton;
-
+    private ImageView starImage;
 
     public static ScoreFragment newInstance() {
         return new ScoreFragment();
@@ -82,16 +83,21 @@ public class ScoreFragment extends Fragment {
         homeButton = view.findViewById(R.id.homeBtn);
         highScoreBtn = view.findViewById(R.id.highScoreBtn);
         typeArithmOpImageBtn = view.findViewById(R.id.typeArithmOpImageBtn);
+        starImage = view.findViewById(R.id.starImageView);
 
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //reset All settings before a new game can start
+                resetAll();
                 Navigation.findNavController(view).navigate(R.id.action_scoreFragment_to_chooseArithmeticOperationFragment);
             }
         });
         startGameBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //reset score
+                mViewModel.setScore(0);
                 Navigation.findNavController(view).navigate(R.id.action_scoreFragment_to_playFieldFragment);
             }
         });
@@ -140,12 +146,12 @@ public class ScoreFragment extends Fragment {
         String timeBtnText = mViewModel.getNumberOfSeconds() + " " +  getResources().getString(R.string.sec);
         timeBtn.setText(timeBtnText);
 
-        //reset All settings before a new game can start
-       resetAll();
+
 
     }
 
     public void checkAndStoreHighScore(String scoreKey) {
+        starImage.setVisibility(View.INVISIBLE);
         try {
             SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
@@ -159,19 +165,20 @@ public class ScoreFragment extends Fragment {
             if (!sharedPref.contains(scoreKey)) {
                 editor.putInt(scoreKey, mViewModel.getScore());
                 editor.apply();
-                textHighscore =  getResources().getString(R.string.hoogsteScore) + " " + score + " " + getResources().getString(R.string.sommen);
+                textHighscore =  getResources().getString(R.string.hoogsteScore) + " " + score;
                 highScoreBtn.setText( textHighscore);
 
                 //there is already a highscore for this combination so look if the new score is higher then the saved one in shared Pref and set mew highscore
             } else if (sharedPref.getInt(scoreKey, 0) < mViewModel.getScore()) {
                 editor.putInt(scoreKey, mViewModel.getScore());
                 editor.apply();
-                textHighscore = getResources().getString(R.string.nieuweHoogsteScore) + " " + score +  " " +  getResources().getString(R.string.sommen);
+                textHighscore = getResources().getString(R.string.nieuweHoogsteScore)+ " " + score;
                 highScoreBtn.setText( textHighscore );
+                starImage.setVisibility(View.VISIBLE);
                 // Log.i("TagFloor" , "ScoreFragment regel 147 new score is: " + mViewModel.getScore());
 
             } else {//the new score is lower then the saved highscore so print the saved highscore in shared pref
-                textHighscore = getResources().getString(R.string.hoogsteScoreTotNuToe) + " " + sharedPref.getInt(scoreKey, 0) +  " " + getResources().getString(R.string.sommen);
+                textHighscore = getResources().getString(R.string.hoogsteScore) + " " + sharedPref.getInt(scoreKey, 0) ;
                 highScoreBtn.setText(textHighscore );
 
             }

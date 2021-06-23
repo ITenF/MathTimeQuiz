@@ -53,6 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:text="@string/_0"
+        android:textAllCaps="false"
         android:textColor="@color/blueGreen"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/inTxtView"
@@ -66,7 +67,7 @@
         style="@style/buttonChooseArithExpr"
         android:layout_width="0dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="25dp"
         android:layout_marginEnd="40dp"
         android:drawableEnd="@drawable/ic_addsignroundbckgrnd28dpx28dp"
         android:gravity="start|center_vertical"
@@ -80,26 +81,37 @@
         android:id="@+id/getallenVanBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="25dp"
         android:backgroundTint="@color/blueGreen"
         android:text="@string/number_range"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/button"
+        app:layout_constraintStart_toEndOf="@+id/getalVanTxtView"
         app:layout_constraintTop_toBottomOf="@+id/typeArithmOpImageBtn" />
 
     <Button
         android:id="@+id/highScoreBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="40dp"
         android:backgroundTint="@color/brownOrange"
         android:text="@string/_0"
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/getallenVanBtn" />
+
+    <ImageView
+        android:id="@+id/starImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:contentDescription="@string/starimage"
+        android:src="@android:drawable/btn_star_big_on"
+        app:layout_constraintBottom_toBottomOf="@+id/highScoreBtn"
+        app:layout_constraintEnd_toStartOf="@+id/highScoreBtn"
+        app:layout_constraintTop_toTopOf="@+id/highScoreBtn" />
 
     <Button
         android:id="@+id/startNewGameBtn"
@@ -115,17 +127,33 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/homeBtn"
+        style="@style/buttonHomeNewGame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginBottom="36dp"
+        android:background="@drawable/circle"
+        android:backgroundTint="@color/blueGreen"
+        android:drawableEnd="@drawable/home_sign38x38px"
+        android:paddingStart="0dp"
+        android:paddingEnd="24dp"
+        android:textColor="@color/backgroundColor"
+        app:iconTint="@color/backgroundColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/getalVanTxtView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
         android:text="@string/met_getallen_van"
-        android:textAllCaps="?android:attr/windowOverscan"
+        app:layout_constraintBottom_toBottomOf="@+id/getallenVanBtn"
         app:layout_constraintEnd_toStartOf="@+id/getallenVanBtn"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/typeArithmOpImageBtn" />
+        app:layout_constraintTop_toTopOf="@+id/getallenVanBtn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -79,6 +79,10 @@
         <item name="backgroundTint">@color/purpleBrown</item>
     </style>
 
+    <style name="buttonHomeNewGame" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/blueGreen</item>
+    </style>
+
     <style name="textViewBlueGreenBackground" parent="Widget.MaterialComponents.TextView">
         <item name="android:textColor">@color/blueGreen</item>
 

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -36,7 +35,6 @@ public class PlayFieldFragment extends Fragment {
     private Button answer3Button;
     private Button answer4Button;
     View view;
-    NavController navController;
     private int playScore;
 
 
@@ -261,30 +259,7 @@ public class PlayFieldFragment extends Fragment {
         public void run(){
             //remove the backgroundcolor of all the buttons
            //answer1Button.setBackgroundResource(R.color.neutralAnswerButtonColor);
-            try {
-                answer1Button.setBackgroundColor(getActivity().getResources().getColor(R.color.primaryColor));
-            }catch (Exception e){
-                Log.i("Exception" , e.toString() + " color primary is not available");
-            }
-            //answer2Button.setBackgroundResource(R.color.neutralAnswerButtonColor);
-            try {
-                answer2Button.setBackgroundColor(getActivity().getResources().getColor(R.color.primaryColor));
-            }catch (Exception e){
-                Log.i("Exception" , e.toString() + " color primary is not available");
-            }
-            //answer3Button.setBackgroundResource(R.color.neutralAnswerButtonColor);
-            try {
-                answer3Button.setBackgroundColor(getActivity().getResources().getColor(R.color.primaryColor));
-            }catch (Exception e){
-                Log.i("Exception" , e.toString() + " color primary is not available");
-            }
-            //answer4Button.setBackgroundResource(R.color.neutralAnswerButtonColor);
-            try {
-                answer4Button.setBackgroundColor(getActivity().getResources().getColor(R.color.primaryColor));
-            }catch (Exception e){
-                Log.i("Exception" , e.toString() + " color primary is not available");
-            }
-
+            removeBackgrdcolorOfAnswerBtns();
             //make new sum in playfield and store new correctanswer
             int newCorrectAnswer = makeSumAndSetSumInPlayField(mViewModel.getTypeArithmeticExpression());
             mViewModel.setCorrectAnswer(newCorrectAnswer);
@@ -358,7 +333,36 @@ public class PlayFieldFragment extends Fragment {
         scoreTxtView.setText("0");
         progressBar.setProgress(0);
         countDownTimer.cancel();
+        removeBackgrdcolorOfAnswerBtns();
         setTheTimerAndProgressbar(mViewModel.getNumberOfSeconds());
+    }
+
+
+    public void removeBackgrdcolorOfAnswerBtns(){
+        try {
+            answer1Button.setBackgroundColor(getActivity().getResources().getColor(R.color.primaryColor));
+        }catch (Exception e){
+            Log.i("Exception" , e.toString() + " color primary is not available");
+        }
+        //answer2Button.setBackgroundResource(R.color.neutralAnswerButtonColor);
+        try {
+            answer2Button.setBackgroundColor(getActivity().getResources().getColor(R.color.primaryColor));
+        }catch (Exception e){
+            Log.i("Exception" , e.toString() + " color primary is not available");
+        }
+        //answer3Button.setBackgroundResource(R.color.neutralAnswerButtonColor);
+        try {
+            answer3Button.setBackgroundColor(getActivity().getResources().getColor(R.color.primaryColor));
+        }catch (Exception e){
+            Log.i("Exception" , e.toString() + " color primary is not available");
+        }
+        //answer4Button.setBackgroundResource(R.color.neutralAnswerButtonColor);
+        try {
+            answer4Button.setBackgroundColor(getActivity().getResources().getColor(R.color.primaryColor));
+        }catch (Exception e){
+            Log.i("Exception" , e.toString() + " color primary is not available");
+        }
+
     }
 
 

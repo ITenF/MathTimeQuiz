@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +37,7 @@ public class PlayFieldFragment extends Fragment {
     private Button answer4Button;
     View view;
     private int playScore;
+    private long mLastClickTime = 0;
 
 
 
@@ -74,24 +76,48 @@ public class PlayFieldFragment extends Fragment {
         answer1Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick( View view) {
+                // mis-clicking prevention, using threshold of 1000 ms
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000){
+                    return;
+                }
+                mLastClickTime = SystemClock.elapsedRealtime();
+                //check  the answer
                 checkAnswer(answer1Button);
             }
         });
         answer2Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick( View view) {
+                // mis-clicking prevention, using threshold of 1000 ms
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000){
+                    return;
+                }
+                mLastClickTime = SystemClock.elapsedRealtime();
+                //check  the answer
                 checkAnswer(answer2Button);
             }
         });
         answer3Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick( View view) {
+                // mis-clicking prevention, using threshold of 1000 ms
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000){
+                    return;
+                }
+                mLastClickTime = SystemClock.elapsedRealtime();
+                //check  the answer
                 checkAnswer(answer3Button);
             }
         });
         answer4Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick( View view) {
+                // mis-clicking prevention, using threshold of 1000 ms
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000){
+                    return;
+                }
+                mLastClickTime = SystemClock.elapsedRealtime();
+                //check  the answer
                 checkAnswer(answer4Button);
             }
         });
@@ -106,21 +132,23 @@ public class PlayFieldFragment extends Fragment {
     }
 
     //create a random number between the range that is chosen 1-10 or 1-200
-    public int getRandomNumber( int maxValue){
+    public int getRandomNumber(int minValue , int maxValue){
         int min = 1;
-       return  (int)(Math.random() * (maxValue - min + 1) + min);
+       return  (int)(Math.random() * (maxValue - minValue + 1) + minValue);
     }
 
 
     //make a new sum from the chosen artithmetic expression,and Do set it in the textfields of the playfield and remember
     public int makeSumAndSetSumInPlayField(String typeOfArithmeticExpr){
         //make the first number of the sum
-        int firstNumber = getRandomNumber(mViewModel.getNumberRange());
+        int firstNumber = getRandomNumber(1 , mViewModel.getNumberRange());
+        //Log.i("TagFloor"  , "PlayFieldFragment line 145 numberOfMiliseconds is:"  + firstNumber);
         firstNumberTxtView.setText(String.valueOf(firstNumber));
+        mViewModel.setFirstNumber(firstNumber);
         //set type of sum
         arithmeticExpTxtView.setText(typeOfArithmeticExpr);
         //make the second number of the sum
-        int secondNumber = getRandomNumber(mViewModel.getNumberRange());
+        int secondNumber = getRandomNumber( 1 , mViewModel.getNumberRange());
         //look what the correct answer of the sum is
         int answerInt=0;
         if (typeOfArithmeticExpr.equals("+")){
@@ -129,7 +157,7 @@ public class PlayFieldFragment extends Fragment {
         if (typeOfArithmeticExpr.equals("-")){
             // to make sure there are no negative numbers in answers
             if (secondNumber >= firstNumber){
-                secondNumber = getRandomNumber(firstNumber);
+                secondNumber = getRandomNumber(1 , firstNumber);
             }
             answerInt = firstNumber - secondNumber;
         }
@@ -137,43 +165,30 @@ public class PlayFieldFragment extends Fragment {
             answerInt = firstNumber * secondNumber;
         }
         secondNumberTxtView.setText(String.valueOf(secondNumber));
+        mViewModel.setSecondNumber(secondNumber);
         // !!!you make the division   (firstnumber*secondnumber)  / firstnumber = secondnumber  In this way you make sure there is a integer as an answerInt
         if (typeOfArithmeticExpr.equals("/")){
             int newFirstNumber = firstNumber*secondNumber;
             firstNumberTxtView.setText(String.valueOf(newFirstNumber));
+            mViewModel.setFirstNumber(newFirstNumber);
             secondNumberTxtView.setText(String.valueOf(firstNumber));
+            mViewModel.setSecondNumber(firstNumber);
             answerInt = secondNumber;
         }
         return answerInt;
     }
 
 
-    //make a new sum from the chosen artithmetic expression, but don't set it in the textfields of the playfield, this is used to make the false answer buttons
-    public int makeSum(String typeOfArithmeticExpr){
-        //make the first number of the sum
-        int firstNumber = getRandomNumber(mViewModel.getNumberRange());
-        //make the second number of the sum
-        int secondNumber = getRandomNumber(mViewModel.getNumberRange());
-        //look what the correct answer of the sum is
-        int answerInt=0;
-        if (typeOfArithmeticExpr.equals("+")){
-            answerInt = firstNumber + secondNumber;
-        }
-        if (typeOfArithmeticExpr.equals("-")){
-            //answerInt = firstNumber - secondNumber;
-            answerInt = getRandomNumber(mViewModel.getNumberRange());
+    //make a new false answers for the other answerbuttons, this is done by creating a random number close to the real answer number
+    public int makeSum(){
+         int answerNumber;
+         if (mViewModel.getCorrectAnswer() > 10 ){
+             answerNumber = getRandomNumber( mViewModel.getCorrectAnswer()-10 , mViewModel.getCorrectAnswer() +10 );
+         }else{
+             answerNumber = getRandomNumber( 1 , mViewModel.getCorrectAnswer() + 10);
+         }
+         return answerNumber;
 
-        }
-        if (typeOfArithmeticExpr.equals("*")){
-            answerInt = firstNumber * secondNumber;
-        }
-        if (typeOfArithmeticExpr.equals("/")){
-            // you make the division   (firstnumber*secondnumber)  / firstnumber = secondnumber  In this way you make sure there is a integer as an answerInt
-            int newFirstNumber = firstNumber*secondNumber;
-            //firstNumberTxtView.setText(String.valueOf(newFirstNumber));
-            answerInt = newFirstNumber/firstNumber;
-        }
-        return answerInt;
     }
 
 
@@ -182,10 +197,10 @@ public class PlayFieldFragment extends Fragment {
         //make an arrayList of 3 answers that are different then the corrrect answer en different from each other
         ArrayList<Integer> newAnswerArrayList = new ArrayList<>();
         for(int i=0 ; i<3 ; i++) {
-            int newAnswer = makeSum(mViewModel.getTypeArithmeticExpression());
+            int newAnswer = makeSum();
             //check if newAnswer is not the same as the correct answer or already is made as an anser or is smaller then the correctanswer-10   or is bigger then the correct answer +10
             while (newAnswer == mViewModel.getCorrectAnswer() || newAnswerArrayList.contains(newAnswer) || newAnswer < mViewModel.getCorrectAnswer()-10 || newAnswer > mViewModel.getCorrectAnswer()+10) {
-                newAnswer = makeSum(mViewModel.getTypeArithmeticExpression());
+                newAnswer = makeSum();
             }
             newAnswerArrayList.add(newAnswer);
         }

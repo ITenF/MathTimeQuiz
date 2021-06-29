@@ -7,6 +7,8 @@ public class MainViewModel extends ViewModel {
     private String typeArithmeticExpression;  //+ of - of *
     private int numberRange = 10;//numbers between 1-10 or 1-100 , default is 1-10
     private int numberOfSeconds = 30; // duration of test: 30, 45, 60 sec, default is 30 sec
+    private int firstNumber;
+    private int secondNumber;
     private int correctAnswer;//the correct answer of the sum
     private Double correctAnswerDbl;//the correct answer for the division
     private  int score;//the score
@@ -50,6 +52,13 @@ public class MainViewModel extends ViewModel {
         this.numberOfSeconds = numberOfSeconds;
     }
 
+    public int getFirstNumber() { return firstNumber; }
+
+    public void setFirstNumber(int firstNumber) { this.firstNumber = firstNumber; }
+
+    public int getSecondNumber() { return secondNumber; }
+
+    public void setSecondNumber(int secondNumber) { this.secondNumber = secondNumber; }
 
     public String getTypeArithmeticExpression() {
         return typeArithmeticExpression;
